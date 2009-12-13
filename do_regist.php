@@ -1,0 +1,17 @@
+<?php
+include("init.php");
+$user_name=$_POST['user_name'];
+$password=$_POST['password'];
+$repeated_password=$_POST['repeated_password'];
+if(user_exist($user_name)){
+	header("location:regist.php?user_name=".$user_name."&user_name_exists");
+}elseif($password!=$repeated_password){
+	header("location:regist.php?user_name=".$user_name."&different_password");
+}elseif(strlen($password)<6){
+	header("location:regist.php?user_name=".$user_name."&password_too_short");
+}else{
+	create_user($user_name,$password);
+	login($user_name,$password);
+	header("location:home.php");
+}
+?>
